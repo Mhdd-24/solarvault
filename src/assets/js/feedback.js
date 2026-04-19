@@ -354,12 +354,9 @@
   // ══════════════════════════════════════════════════════════════════════════
 
   function init(toolName) {
-    if (!toolName) {
-      console.warn('[SolarVault] No tool name provided. Set window.SITE_TOOL_NAME before loading feedback.js');
-      return;
-    }
-    
-    _toolName = toolName;
+    _toolName = (toolName != null && String(toolName).trim() !== '')
+      ? String(toolName).trim()
+      : 'SolarVault';
     
     // Create elements
     const bar = createPassiveBar();
@@ -448,14 +445,13 @@
   window.SVFeedback = feedbackApi;
   window.CKFeedback = feedbackApi;
 
-  // Auto-init if tool name is set
+  // Auto-init on every page (homepage / hubs use a generic label if unset)
   const _tn = window.SITE_TOOL_NAME || window.SOLARVAULT_TOOL_NAME;
-  if (_tn) {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => init(_tn));
-    } else {
-      init(_tn);
-    }
+  const _boot = () => init(_tn);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', _boot);
+  } else {
+    _boot();
   }
 
 })();

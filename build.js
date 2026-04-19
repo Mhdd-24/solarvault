@@ -94,7 +94,8 @@ function buildServiceWorker() {
   add('/sitemap.xml');
   add('/robots.txt');
   for (const f of ['base.css', 'layout.css', 'tool.css', 'feedback.css']) add(`/assets/css/${f}`);
-  for (const f of ['ui.js', 'sv-state.js', 'smart-suggest.js', 'pwa.js', 'feedback.js']) add(`/assets/js/core/${f}`);
+  for (const f of ['ui.js', 'sv-state.js', 'smart-suggest.js', 'pwa.js']) add(`/assets/js/core/${f}`);
+  add('/assets/js/feedback.js');
   const toolsDir = path.join(SRC, 'assets', 'js', 'tools');
   if (fs.existsSync(toolsDir)) {
     for (const file of fs.readdirSync(toolsDir)) {
@@ -212,7 +213,7 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
   return `
   <meta charset="UTF-8">
   <script>window.SV_BASE_PATH=${JSON.stringify(BASE_PATH)};</script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="description" content="${metaDescription}">
   <meta name="robots" content="index, follow">
@@ -268,17 +269,17 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{font-size:16px;scroll-behavior:smooth}
-    body{background:#0e1119;color:#e8e6f0;font-family:'IBM Plex Mono','Courier New',monospace;min-height:100vh;overflow-x:hidden;line-height:1.6}
-    .skip-link{position:absolute;top:-100px;left:16px;background:#e8b84a;color:#1a1208;font-size:13px;font-weight:700;padding:8px 16px;border-radius:6px;z-index:9999;transition:top .2s}
+    body{background:#05060a;color:#f4f6fc;font-family:'Plus Jakarta Sans',system-ui,sans-serif;min-height:100vh;overflow-x:hidden;line-height:1.6}
+    .skip-link{position:absolute;top:-100px;left:16px;background:#ffd24a;color:#0a0b0f;font-size:13px;font-weight:700;padding:8px 16px;border-radius:6px;z-index:9999;transition:top .2s}
     .skip-link:focus{top:8px}
-    .site-header{border-bottom:1px solid #2a3144;background:rgba(14,17,25,.92);position:sticky;top:0;z-index:200;backdrop-filter:blur(16px)}
-    .header-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;gap:24px}
-    .hamburger-btn{display:none;background:none;border:none;color:#e8b84a;font-size:1.4rem;cursor:pointer;padding:4px;margin-left:auto;line-height:1}
+    .site-header{border-bottom:1px solid rgba(255,209,74,.22);background:rgba(2,3,6,.92);position:sticky;top:0;z-index:200;width:100%;backdrop-filter:blur(18px);box-shadow:0 8px 32px rgba(0,0,0,.45)}
+    .header-inner{max-width:1268px;margin:0 auto;padding:0 clamp(16px,3vw,28px);height:56px;display:flex;align-items:center;gap:clamp(12px,2vw,20px)}
+    .hamburger-btn{display:none;background:none;border:none;color:#ffd24a;font-size:1.4rem;cursor:pointer;padding:4px;margin-left:auto;line-height:1}
     .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
     .logo-mark{width:30px;height:30px;border-radius:6px;display:grid;place-items:center;flex-shrink:0;overflow:hidden}
     .logo-mark svg{width:30px;height:30px}
-    .logo-name{font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-weight:800;font-size:17px;color:#e8e6f0;letter-spacing:-.4px}
-    .logo-name em{color:#ecc45e;font-style:normal}
+    .logo-name{font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-weight:800;font-size:17px;color:#f4f6fc;letter-spacing:-.4px}
+    .logo-name em{color:#ffd24a;font-style:normal}
   </style>
 
   <!-- Stylesheets -->
@@ -721,7 +722,7 @@ ${buildNavbar()}
       <div class="hero-copy">
         <p class="hero-kicker">
           <span class="hero-kicker-icon">${SVG.shield}</span>
-          ${escapeHtml(site.tagline || 'Client-side tools — your browser is the vault.')}
+          <span class="hero-kicker-text">${escapeHtml(site.tagline || 'Client-side tools — your browser is the vault.')}</span>
         </p>
         <h1><span class="sv-hero-brand">${escapeHtml(site.name)}</span><span class="sv-hero-line">Local-first utilities for everyday work</span></h1>
         <p class="hero-sub">${tools.length} tools for encoding, conversion, security helpers, and images. No accounts — everything runs in your browser.</p>
@@ -859,6 +860,8 @@ searchInput.addEventListener('input', function() {
 });
 </script>
 <script src="${BASE_PATH}/assets/js/core/pwa.js" defer></script>
+<script>window.SITE_TOOL_NAME = ${JSON.stringify('SolarVault (homepage)')};</script>
+<script src="${BASE_PATH}/assets/js/feedback.js" defer></script>
 
 <!-- Recently Used (inline, runs before sv-state.js) -->
 <script defer>
@@ -986,6 +989,8 @@ ${buildFooter()}
 
 <script src="${BASE_PATH}/assets/js/core/ui.js" defer></script>
 <script src="${BASE_PATH}/assets/js/core/pwa.js" defer></script>
+<script>window.SITE_TOOL_NAME = ${JSON.stringify(cat.label)};</script>
+<script src="${BASE_PATH}/assets/js/feedback.js" defer></script>
 </body>
 </html>`;
 }
@@ -1177,7 +1182,10 @@ ${footer}
   <span id="toast-msg">Copied to clipboard</span>
 </div>
 
+<script src="${BASE_PATH}/assets/js/core/ui.js" defer></script>
 <script src="${BASE_PATH}/assets/js/core/pwa.js" defer></script>
+<script>window.SITE_TOOL_NAME = ${JSON.stringify('Privacy Policy')};</script>
+<script src="${BASE_PATH}/assets/js/feedback.js" defer></script>
 </body>
 </html>`;
 }
@@ -1254,7 +1262,10 @@ ${buildNavbar()}
   <a href="/" style="color:var(--green)">← Back to all tools</a>
 </main>
 ${buildFooter()}
+<script src="${BASE_PATH}/assets/js/core/ui.js" defer></script>
 <script src="${BASE_PATH}/assets/js/core/pwa.js" defer></script>
+<script>window.SITE_TOOL_NAME = ${JSON.stringify('404 — Page not found')};</script>
+<script src="${BASE_PATH}/assets/js/feedback.js" defer></script>
 </body>
 </html>`);
 

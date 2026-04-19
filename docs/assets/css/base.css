@@ -1,33 +1,38 @@
 /* base.css — CSS custom properties + reset + typography */
 
 :root {
-  /* SolarVault — deep vault base + solar gold accent */
-  --bg:       #0e1119;
-  --surface:  #161b28;
-  --sf2:      #1e2433;
-  --border:   #2c3345;
-  --green:    #ecc45e;
-  --gdim:     #3d3424;
-  --amber:    #f5b04a;
-  --red:      #f07178;
-  --blue:     #8ab8ff;
-  --purple:   #c9b4f5;
-  --text:     #eef0f6;
-  --muted:    #9aa3b5;
-  --dim:      #9aa3b5;
-  --solar:    #f2c14e;
-  --vault:    #141a2e;
+  /* Classic vault: near-black base + high-contrast gold */
+  --bg:       #05060a;
+  --surface:  #0c0f16;
+  --sf2:      #141922;
+  --border:   #2a3348;
+  --green:    #ffd24a;
+  --gdim:     #4a3d12;
+  --amber:    #ffb020;
+  --red:      #ff6b7a;
+  --blue:     #9ec8ff;
+  --purple:   #d4b8ff;
+  --text:     #f4f6fc;
+  --muted:    #a8b4cc;
+  --dim:      #8b98b0;
+  --solar:    #ffcc33;
+  --vault:    #0a0d14;
 
-  /* Per-hub accents (cards + rails) */
-  --hub-crypto:    #e8953a;
-  --hub-encoding:  #5ec8e8;
-  --hub-converter: #b894f5;
-  --hub-dev:       #f0a848;
-  --hub-image:     #f078a8;
+  /* Per-hub accents — vivid on dark */
+  --hub-crypto:    #ffb347;
+  --hub-encoding:  #5ee0ff;
+  --hub-converter: #c9a0ff;
+  --hub-dev:       #ffb84d;
+  --hub-image:     #ff8cc8;
 
-  /* Typography */
+  /* Typography — classic display for hero / titles */
   --mono: 'JetBrains Mono', 'IBM Plex Mono', 'Courier New', monospace;
   --sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --display: Georgia, 'Times New Roman', Times, serif;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.3, 0.64, 1);
 
   /* Layout */
   --r:        8px;
@@ -70,20 +75,20 @@ body {
   border: 0;
 }
 
-/* Subtle grid background */
+/* Classic ruled grid — slightly warmer gold */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(242,193,78,.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(242,193,78,.04) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(rgba(255, 209, 74, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 209, 74, 0.055) 1px, transparent 1px);
+  background-size: 52px 52px;
   pointer-events: none;
   z-index: 0;
 }
 
-/* Soft solar bloom + vault depth */
+/* Solar bloom + depth — slow drift for polish */
 body::after {
   content: '';
   position: fixed;
@@ -91,8 +96,15 @@ body::after {
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(ellipse 70% 55% at 100% 0%, rgba(242,193,78,0.11), transparent 52%),
-    radial-gradient(ellipse 50% 40% at 0% 100%, rgba(90,108,138,0.12), transparent 50%);
+    radial-gradient(ellipse 75% 60% at 100% -10%, rgba(255, 209, 74, 0.14), transparent 55%),
+    radial-gradient(ellipse 55% 45% at -5% 110%, rgba(100, 140, 220, 0.1), transparent 52%);
+  background-size: 120% 120%;
+  animation: sv-ambient-shift 24s ease-in-out infinite alternate;
+}
+
+@keyframes sv-ambient-shift {
+  0%   { background-position: 0% 0%, 100% 100%; opacity: 1; }
+  100% { background-position: 100% 8%, 0% 0%; opacity: 0.92; }
 }
 
 * { position: relative; z-index: 1; }
@@ -101,13 +113,31 @@ body::after {
 a {
   color: var(--green);
   text-decoration: none;
-  transition: opacity .15s;
+  transition: color 0.2s var(--ease-out), opacity 0.2s;
 }
-a:hover { opacity: .8; }
+a:hover {
+  color: #ffe078;
+  opacity: 1;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
 a:focus-visible {
   outline: 2px solid var(--green);
   outline-offset: 3px;
   border-radius: 3px;
+}
+
+/* Card-style links stay clean (editorial underline for prose links only) */
+.tool-card:hover,
+.featured-card:hover,
+.related-card:hover,
+.nav-link:hover,
+.logo:hover,
+.hub-rail-link:hover,
+.sv-smart-link:hover,
+.nav-search-result:hover {
+  text-decoration: none;
 }
 
 /* ── TYPOGRAPHY ──────────────────────────────────────────────────────────── */
@@ -263,9 +293,17 @@ select:focus {
   50%       { opacity: .2; }
 }
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes sv-rise-in {
+  from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
 .spin-icon { animation: spin .7s linear infinite; }
-.fade-up   { animation: fadeUp .3s ease; }
+.fade-up   { animation: fadeUp .4s var(--ease-out); }
+
+@media (prefers-reduced-motion: reduce) {
+  body::after { animation: none !important; }
+}

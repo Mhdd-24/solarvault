@@ -20,8 +20,8 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#0e1119",
-  "background_color": "#0e1119",
+  "theme_color": "#05060a",
+  "background_color": "#05060a",
   "display": "standalone",
   "orientation": "any",
   "start_url": "/",
