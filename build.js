@@ -147,7 +147,7 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://dns.google https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com; img-src ${imgSrc}; frame-ancestors 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https: https://dns.google https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com; img-src ${imgSrc}; frame-ancestors 'none';">
 
   <!-- Open Graph -->
   <meta property="og:title" content="${pageTitle}">
@@ -833,7 +833,7 @@ function buildCategoryPage(cat) {
     crypto:    ['aes-encryption', 'sha256-generator', 'bcrypt-generator'],
     encoding:  ['base64-encode', 'json-formatter', 'url-encode'],
     converter: ['csv-json-converter', 'markdown-to-pdf', 'xml-json-converter'],
-    dev:       ['jwt-decoder', 'uuid-generator', 'regex-tester'],
+    dev:       ['api-request-builder', 'env-file-generator', 'docker-command-generator'],
     image:     ['qr-generator', 'image-resizer', 'png-to-jpg'],
   };
   const featured = (featuredSlugs[cat.id] || [])

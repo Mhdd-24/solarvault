@@ -2378,6 +2378,116 @@
       "phase": 8,
       "status": "ready",
       "priority": 85
+    },
+    {
+      "slug": "api-request-builder",
+      "title": "API Request Builder",
+      "pageTitle": "API Request Builder – cURL, fetch & axios Snippets Online | SolarVault",
+      "metaDescription": "Free browser-based API request builder. Compose HTTP methods, URL, headers, and body; copy cURL, fetch(), or axios snippets. Optional HTTPS send from your machine.",
+      "h1": "API Request Builder",
+      "tagline": "Compose requests — copy cURL, fetch(), or axios; optional HTTPS send in-browser",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "api client",
+        "curl generator",
+        "fetch",
+        "axios",
+        "http request",
+        "postman alternative",
+        "rest client"
+      ],
+      "relatedTools": [
+        "http-header-parser",
+        "json-formatter",
+        "env-file-generator",
+        "jwt-decoder"
+      ],
+      "jsFile": "api-request-builder.js",
+      "phase": 9,
+      "status": "ready",
+      "priority": 86
+    },
+    {
+      "slug": "env-file-generator",
+      "title": "ENV File Generator",
+      "pageTitle": "ENV File Generator – Create .env Files Online | SolarVault",
+      "metaDescription": "Free .env file generator. Add key-value rows, optional export prefix and smart quoting, then copy or download your environment file. Client-side only.",
+      "h1": "ENV File Generator",
+      "tagline": "Build .env files with quoting, export prefix, and starter keys — copy or download",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "env file",
+        "dotenv",
+        "environment variables",
+        ".env generator",
+        "config"
+      ],
+      "relatedTools": [
+        "api-request-builder",
+        "yaml-formatter",
+        "json-formatter",
+        "docker-command-generator"
+      ],
+      "jsFile": "env-file-generator.js",
+      "phase": 9,
+      "status": "ready",
+      "priority": 87
+    },
+    {
+      "slug": "docker-command-generator",
+      "title": "Docker Command Generator",
+      "pageTitle": "Docker Command Generator – docker run & compose Online | SolarVault",
+      "metaDescription": "Free Docker command generator. Build docker run, build, exec, logs, compose up/down, and safe prune commands from form fields — copy into your terminal.",
+      "h1": "Docker Command Generator",
+      "tagline": "Generate docker run, build, compose, exec, logs, and prune commands",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "docker",
+        "docker compose",
+        "docker run",
+        "container",
+        "cli generator"
+      ],
+      "relatedTools": [
+        "git-command-helper",
+        "env-file-generator",
+        "api-request-builder",
+        "gzip-tool"
+      ],
+      "jsFile": "docker-command-generator.js",
+      "phase": 9,
+      "status": "ready",
+      "priority": 88
+    },
+    {
+      "slug": "git-command-helper",
+      "title": "Git Command Helper",
+      "pageTitle": "Git Command Helper – Common Git Commands Online | SolarVault",
+      "metaDescription": "Free Git command helper. Pick everyday workflows — new branch, commit, stash, pull --rebase, push -u, tags, logs — and copy ready-to-run shell commands.",
+      "h1": "Git Command Helper",
+      "tagline": "Everyday Git workflows as copy-paste shell commands",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "git",
+        "git commands",
+        "git cheat sheet",
+        "version control",
+        "developer cli"
+      ],
+      "relatedTools": [
+        "docker-command-generator",
+        "diff-checker",
+        "markdown-preview",
+        "regex-tester"
+      ],
+      "jsFile": "git-command-helper.js",
+      "phase": 9,
+      "status": "ready",
+      "priority": 89
     }
   ]
 }
