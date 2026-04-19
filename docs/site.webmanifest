@@ -1,6 +1,13 @@
 {
   "name": "SolarVault",
   "short_name": "SolarVault",
+  "description": "SolarVault is a free suite of developer tools for encoding, conversion, formatting, lightweight crypto helpers, and images. All processing stays in your browser — nothing is uploaded to a server.",
+  "categories": [
+    "utilities",
+    "productivity",
+    "developer tools"
+  ],
+  "id": "/",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -16,5 +23,7 @@
   "theme_color": "#0e1119",
   "background_color": "#0e1119",
   "display": "standalone",
-  "start_url": "/"
+  "orientation": "any",
+  "start_url": "/",
+  "scope": "/"
 }

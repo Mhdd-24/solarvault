@@ -72,6 +72,82 @@ function writeDist(relPath, content) {
   console.log(`  ✓ ${relPath}`);
 }
 
+/** Join site base path (e.g. /SolarVault) with pathname (e.g. /tools/x/) for same-origin URLs. */
+function joinSiteUrl(pathname) {
+  const p = (pathname || '').startsWith('/') ? pathname : `/${pathname}`;
+  const b = (BASE_PATH || '').replace(/\/$/, '');
+  if (!b) return p;
+  return `${b}${p}`;
+}
+
+/** Service worker: precache tool shell + cache-first fallback so the site works offline after a visit. */
+function buildServiceWorker() {
+  const urls = [];
+  const add = (pathname) => {
+    const u = joinSiteUrl(pathname);
+    if (!urls.includes(u)) urls.push(u);
+  };
+  add('/');
+  add('/tools.json');
+  add('/site.webmanifest');
+  add('/404.html');
+  add('/sitemap.xml');
+  add('/robots.txt');
+  for (const f of ['base.css', 'layout.css', 'tool.css', 'feedback.css']) add(`/assets/css/${f}`);
+  for (const f of ['ui.js', 'sv-state.js', 'smart-suggest.js', 'pwa.js', 'feedback.js']) add(`/assets/js/core/${f}`);
+  const toolsDir = path.join(SRC, 'assets', 'js', 'tools');
+  if (fs.existsSync(toolsDir)) {
+    for (const file of fs.readdirSync(toolsDir)) {
+      if (file.endsWith('.js')) add(`/assets/js/tools/${file}`);
+    }
+  }
+  for (const t of tools) add(`/tools/${t.slug}/`);
+  for (const c of categories) add(`/tools/${c.id}/`);
+  add('/tools/privacy-policy/');
+
+  const version = `sv-${Date.now()}`;
+  const swBody = `'use strict';
+var CACHE = ${JSON.stringify(version)};
+var PRECACHE = ${JSON.stringify(urls)};
+self.addEventListener('install', function (event) {
+  event.waitUntil(
+    caches.open(CACHE).then(function (cache) {
+      return Promise.allSettled(
+        PRECACHE.map(function (url) {
+          return fetch(url, { cache: 'reload', credentials: 'same-origin' }).then(function (res) {
+            if (res && res.ok) return cache.put(url, res.clone());
+          }).catch(function () {});
+        })
+      );
+    }).then(function () { return self.skipWaiting(); })
+  );
+});
+self.addEventListener('activate', function (event) {
+  event.waitUntil(
+    caches.keys().then(function (keys) {
+      return Promise.all(keys.filter(function (k) { return k !== CACHE; }).map(function (k) { return caches.delete(k); }));
+    }).then(function () { return self.clients.claim(); })
+  );
+});
+self.addEventListener('fetch', function (event) {
+  if (event.request.method !== 'GET') return;
+  event.respondWith(
+    fetch(event.request)
+      .then(function (res) {
+        if (res && res.ok && res.type === 'basic') {
+          var copy = res.clone();
+          caches.open(CACHE).then(function (c) { c.put(event.request, copy); });
+        }
+        return res;
+      })
+      .catch(function () { return caches.match(event.request); })
+  );
+});
+`;
+  fs.writeFileSync(path.join(DIST, 'sw.js'), swBody, 'utf8');
+  console.log('  ✓ sw.js (offline PWA shell)');
+}
+
 function copySrc(srcRel, distRel) {
   const srcFull  = path.join(SRC, srcRel);
   const distFull = path.join(DIST, distRel || srcRel);
@@ -135,7 +211,9 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
   </script>` : '';
   return `
   <meta charset="UTF-8">
+  <script>window.SV_BASE_PATH=${JSON.stringify(BASE_PATH)};</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="description" content="${metaDescription}">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="${themeColor}">
@@ -147,7 +225,7 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https: https://dns.google https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com; img-src ${imgSrc}; frame-ancestors 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; worker-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https: https://dns.google https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com; img-src ${imgSrc}; frame-ancestors 'none';">
 
   <!-- Open Graph -->
   <meta property="og:title" content="${pageTitle}">
@@ -555,6 +633,7 @@ ${footer}
 
 <!-- Core JS -->
 <script src="${BASE_PATH}/assets/js/core/ui.js" defer></script>
+<script src="${BASE_PATH}/assets/js/core/pwa.js" defer></script>
 
 <!-- Feedback Widget -->
 <script>window.SITE_TOOL_NAME = '${tool.title.replace(/'/g, "\\'")}';</script>
@@ -678,6 +757,16 @@ ${buildNavbar()}
     </div>
   </section>
 
+  <section class="sv-smart-panel" id="smart-tool-suggest" aria-labelledby="sv-smart-h">
+    <div class="sv-smart-inner">
+      <h2 id="sv-smart-h" class="sv-smart-h2">Smart tool suggestion</h2>
+      <p class="sv-smart-lead">Paste a sample — we suggest matching tools based on what it looks like (JWT, JSON, SQL, and more).</p>
+      <label class="visually-hidden" for="sv-smart-input">Paste text to analyze</label>
+      <textarea id="sv-smart-input" class="mono sv-smart-textarea" rows="3" placeholder="JWT, JSON, SQL, YAML, URL, hex, Base64, cron, IPv4…"></textarea>
+      <div id="sv-smart-out" class="sv-smart-out" aria-live="polite"></div>
+    </div>
+  </section>
+
   <!-- Search Results (hidden by default) -->
   <section class="search-results sv-search-panel" id="search-results" aria-live="polite" hidden>
     <h2 class="sv-search-title">Matches</h2>
@@ -710,6 +799,7 @@ ${buildFooter()}
 </div>
 
 <script src="${BASE_PATH}/assets/js/core/ui.js" defer></script>
+<script src="${BASE_PATH}/assets/js/core/smart-suggest.js" defer></script>
 <script defer>
 // ── SEARCH ──────────────────────────────────────────────────────────────────
 const TOOLS = ${JSON.stringify(tools.map(t => ({
@@ -719,6 +809,7 @@ const TOOLS = ${JSON.stringify(tools.map(t => ({
   tags:     t.tags,
   category: t.category
 })))};
+window.SV_TOOLS_LIST = TOOLS;
 
 const searchInput   = document.getElementById('tool-search');
 const searchSection = document.getElementById('search-results');
@@ -767,6 +858,7 @@ searchInput.addEventListener('input', function() {
   hubsWrap.hidden      = true;
 });
 </script>
+<script src="${BASE_PATH}/assets/js/core/pwa.js" defer></script>
 
 <!-- Recently Used (inline, runs before sv-state.js) -->
 <script defer>
@@ -833,7 +925,7 @@ function buildCategoryPage(cat) {
     crypto:    ['aes-encryption', 'sha256-generator', 'bcrypt-generator'],
     encoding:  ['base64-encode', 'json-formatter', 'url-encode'],
     converter: ['csv-json-converter', 'markdown-to-pdf', 'xml-json-converter'],
-    dev:       ['api-request-builder', 'env-file-generator', 'docker-command-generator'],
+    dev:       ['jwt-decoder', 'uuid-generator', 'regex-tester'],
     image:     ['qr-generator', 'image-resizer', 'png-to-jpg'],
   };
   const featured = (featuredSlugs[cat.id] || [])
@@ -893,6 +985,7 @@ ${buildNavbar(null, cat.id)}
 ${buildFooter()}
 
 <script src="${BASE_PATH}/assets/js/core/ui.js" defer></script>
+<script src="${BASE_PATH}/assets/js/core/pwa.js" defer></script>
 </body>
 </html>`;
 }
@@ -1084,6 +1177,7 @@ ${footer}
   <span id="toast-msg">Copied to clipboard</span>
 </div>
 
+<script src="${BASE_PATH}/assets/js/core/pwa.js" defer></script>
 </body>
 </html>`;
 }
@@ -1139,6 +1233,10 @@ function build() {
   fs.copyFileSync(TOOLS_JSON, path.join(DIST, 'tools.json'));
   console.log('  ✓ tools.json (nav search data)');
 
+  console.log('📴 Building service worker...');
+  buildServiceWorker();
+  console.log('');
+
   // 9. 404 page
   const notFoundHead = buildHead({
     pageTitle:       `404 — Page Not Found | ${site.name}`,
@@ -1156,6 +1254,7 @@ ${buildNavbar()}
   <a href="/" style="color:var(--green)">← Back to all tools</a>
 </main>
 ${buildFooter()}
+<script src="${BASE_PATH}/assets/js/core/pwa.js" defer></script>
 </body>
 </html>`);
 
@@ -1169,9 +1268,13 @@ ${buildFooter()}
     }
   }
 
+  const manifestRoot = `${BASE_PATH || ''}/`.replace(/\/+/g, '/');
   const webManifest = {
     name: site.name,
     short_name: site.shortName || site.name,
+    description: site.description || 'Free client-side developer tools in your browser.',
+    categories: ['utilities', 'productivity', 'developer tools'],
+    id: manifestRoot,
     icons: [
       { src: `${BASE_PATH}/android-chrome-192x192.png`, sizes: '192x192', type: 'image/png' },
       { src: `${BASE_PATH}/android-chrome-512x512.png`, sizes: '512x512', type: 'image/png' }
@@ -1179,7 +1282,9 @@ ${buildFooter()}
     theme_color: site.themeColor || '#0e1119',
     background_color: site.themeColor || '#0e1119',
     display: 'standalone',
-    start_url: `${BASE_PATH}/`
+    orientation: 'any',
+    start_url: manifestRoot,
+    scope: manifestRoot
   };
   writeDist('site.webmanifest', JSON.stringify(webManifest, null, 2));
   console.log('  ✓ site.webmanifest (from tools.json)');

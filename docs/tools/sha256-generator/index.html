@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+  <script>window.SV_BASE_PATH="";</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="description" content="Free online SHA-256 hash generator. Generate SHA-256 hashes from any text or string instantly in your browser. Supports Hex and Base64 output.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#0e1119">
@@ -14,7 +16,7 @@
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https: https://dns.google https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com; img-src 'self' data: blob: https://www.google-analytics.com; frame-ancestors 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; worker-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https: https://dns.google https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com; img-src 'self' data: blob: https://www.google-analytics.com; frame-ancestors 'none';">
 
   <!-- Open Graph -->
   <meta property="og:title" content="SHA-256 Hash Generator – Generate SHA256 Online | SolarVault">
@@ -155,7 +157,7 @@
     </nav>
 
     <div class="nav-search-wrapper">
-      <input type="search" id="nav-search" placeholder="Search 89 tools…" autocomplete="off" aria-label="Search tools">
+      <input type="search" id="nav-search" placeholder="Search 90 tools…" autocomplete="off" aria-label="Search tools">
       <div id="nav-search-results" class="nav-search-dropdown" hidden></div>
     </div>
 
@@ -285,10 +287,10 @@
         <ul>
           <li><a href="/tools/aes-encryption/">AES Encryption Tool</a></li>
         <li><a href="/tools/aes-decryption/">AES Decryption Tool</a></li>
+        <li><a href="/tools/encrypt-before-sharing/">Encrypt Before Sharing</a></li>
         <li><a href="/tools/sha256-generator/">SHA-256 Hash Generator</a></li>
         <li><a href="/tools/sha512-generator/">SHA-512 Hash Generator</a></li>
         <li><a href="/tools/sha1-generator/">SHA-1 Hash Generator</a></li>
-        <li><a href="/tools/sha3-generator/">SHA-3 Hash Generator</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -353,6 +355,7 @@
 
 <!-- Core JS -->
 <script src="/assets/js/core/ui.js" defer></script>
+<script src="/assets/js/core/pwa.js" defer></script>
 
 <!-- Feedback Widget -->
 <script>window.SITE_TOOL_NAME = 'SHA-256 Hash Generator';</script>

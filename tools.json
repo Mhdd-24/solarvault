@@ -115,6 +115,41 @@
       "priority": 2
     },
     {
+      "slug": "encrypt-before-sharing",
+      "title": "Encrypt Before Sharing",
+      "pageTitle": "Encrypt Before Sharing – Secure Paste for Chat & Email | SolarVault",
+      "metaDescription": "Encrypt sensitive text before sharing in Slack, email, or tickets. One JSON package, passphrase shared out of band; recipients decrypt in the browser — no server.",
+      "h1": "Encrypt Before Sharing",
+      "tagline": "AES-256 package for chat or email — decrypt on this page with the shared passphrase",
+      "category": "crypto",
+      "hub": "Crypto Hub",
+      "tags": [
+        "encrypt before share",
+        "secure paste",
+        "aes package",
+        "slack encryption",
+        "client-side encrypt",
+        "passphrase"
+      ],
+      "relatedTools": [
+        "aes-encryption",
+        "aes-decryption",
+        "random-password-generator",
+        "hmac-generator"
+      ],
+      "jsFile": "encrypt-before-sharing.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js",
+          "integrity": "sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 9,
+      "status": "ready",
+      "priority": 2.5
+    },
+    {
       "slug": "sha256-generator",
       "title": "SHA-256 Hash Generator",
       "pageTitle": "SHA-256 Hash Generator – Generate SHA256 Online | SolarVault",

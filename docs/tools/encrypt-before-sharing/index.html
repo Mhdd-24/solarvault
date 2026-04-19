@@ -5,11 +5,11 @@
   <script>window.SV_BASE_PATH="";</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="description" content="Free online CSV to JSON converter. Convert CSV files or comma-separated data to JSON format instantly in your browser.">
+  <meta name="description" content="Encrypt sensitive text before sharing in Slack, email, or tickets. One JSON package, passphrase shared out of band; recipients decrypt in the browser — no server.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#0e1119">
   
-  <link rel="canonical" href="https://mhdd-24.github.io/SolarVault/tools/csv-json-converter/">
+  <link rel="canonical" href="https://mhdd-24.github.io/SolarVault/tools/encrypt-before-sharing/">
 
   <!-- Security headers (meta fallbacks — real headers need a CDN/server) -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -19,10 +19,10 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; worker-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https: https://dns.google https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com; img-src 'self' data: blob: https://www.google-analytics.com; frame-ancestors 'none';">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="CSV to JSON Converter – Convert CSV Data to JSON Online | SolarVault">
-  <meta property="og:description" content="Free online CSV to JSON converter. Convert CSV files or comma-separated data to JSON format instantly in your browser.">
+  <meta property="og:title" content="Encrypt Before Sharing – Secure Paste for Chat & Email | SolarVault">
+  <meta property="og:description" content="Encrypt sensitive text before sharing in Slack, email, or tickets. One JSON package, passphrase shared out of band; recipients decrypt in the browser — no server.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://mhdd-24.github.io/SolarVault/tools/csv-json-converter/">
+  <meta property="og:url" content="https://mhdd-24.github.io/SolarVault/tools/encrypt-before-sharing/">
   <meta property="og:site_name" content="SolarVault">
   <meta property="og:image" content="https://mhdd-24.github.io/SolarVault/android-chrome-512x512.png">
   <meta property="og:image:width" content="512">
@@ -30,16 +30,16 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="CSV to JSON Converter – Convert CSV Data to JSON Online | SolarVault">
-  <meta name="twitter:description" content="Free online CSV to JSON converter. Convert CSV files or comma-separated data to JSON format instantly in your browser.">
+  <meta name="twitter:title" content="Encrypt Before Sharing – Secure Paste for Chat & Email | SolarVault">
+  <meta name="twitter:description" content="Encrypt sensitive text before sharing in Slack, email, or tickets. One JSON package, passphrase shared out of band; recipients decrypt in the browser — no server.">
   <meta name="twitter:image" content="https://mhdd-24.github.io/SolarVault/android-chrome-512x512.png">
 
   <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "CSV to JSON Converter",
-  "url": "https://mhdd-24.github.io/SolarVault/tools/csv-json-converter/",
-  "description": "Free online CSV to JSON converter. Convert CSV files or comma-separated data to JSON format instantly in your browser.",
+  "name": "Encrypt Before Sharing",
+  "url": "https://mhdd-24.github.io/SolarVault/tools/encrypt-before-sharing/",
+  "description": "Encrypt sensitive text before sharing in Slack, email, or tickets. One JSON package, passphrase shared out of band; recipients decrypt in the browser — no server.",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "All",
   "offers": {
@@ -61,32 +61,32 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What happens if my CSV has commas inside a field?",
+      "name": "Is the Encrypt Before Sharing free?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Fields containing commas should be wrapped in double quotes in valid CSV. The converter handles quoted fields correctly, e.g. \"Smith, John\" remains one field, not split into two."
+        "text": "Yes, completely free. No signup required."
       }
     },
     {
       "@type": "Question",
-      "name": "Does the converter handle CSV files with different delimiters (TSV, semicolon)?",
+      "name": "Is my data sent to a server?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most CSV converters handle standard comma-delimited files. For TSV (tab-separated) or semicolon-delimited files, check if the tool has a delimiter option or manually replace the delimiter before pasting."
+        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
       }
     },
     {
       "@type": "Question",
-      "name": "Can I convert JSON back to CSV?",
+      "name": "What does the Encrypt Before Sharing do?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. SolarVault supports bidirectional conversion. Paste JSON (an array of objects with consistent keys) and convert it to CSV format with headers derived from the object keys."
+        "text": "Encrypt sensitive text before sharing in Slack, email, or tickets. One JSON package, passphrase shared out of band; recipients decrypt in the browser — no server."
       }
     }
   ]
 }</script>
 
-  <title>CSV to JSON Converter – Convert CSV Data to JSON Online | SolarVault</title>
+  <title>Encrypt Before Sharing – Secure Paste for Chat & Email | SolarVault</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -149,9 +149,9 @@
     <button class="hamburger-btn" id="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
 
     <nav class="header-nav" id="header-nav" aria-label="Tool categories">
-      <a href="/tools/crypto/" class="nav-link"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span> Crypto</a>
+      <a href="/tools/crypto/" class="nav-link nav-link--active"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span> Crypto</a>
       <a href="/tools/encoding/" class="nav-link"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span> Encoding</a>
-      <a href="/tools/converter/" class="nav-link nav-link--active"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span> Converter</a>
+      <a href="/tools/converter/" class="nav-link"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span> Converter</a>
       <a href="/tools/dev/" class="nav-link"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span> Dev</a>
       <a href="/tools/image/" class="nav-link"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span> Image</a>
     </nav>
@@ -179,12 +179,12 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="/">Home</a>
         <span aria-hidden="true">›</span>
-        <a href="/tools/converter/">Converter Hub</a>
+        <a href="/tools/crypto/">Crypto Hub</a>
         <span aria-hidden="true">›</span>
-        <span aria-current="page">CSV to JSON Converter</span>
+        <span aria-current="page">Encrypt Before Sharing</span>
       </nav>
-      <h1>CSV to JSON Converter</h1>
-      <p class="tool-tagline">Convert CSV data to JSON — paste your CSV, get instant JSON</p>
+      <h1>Encrypt Before Sharing</h1>
+      <p class="tool-tagline">AES-256 package for chat or email — decrypt on this page with the shared passphrase</p>
       <div class="tool-badges">
         <span class="badge badge-green"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span> Free</span>
         <span class="badge badge-green"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span> Client-Side</span>
@@ -197,7 +197,7 @@
   <!-- Tool Interface (injected by tool JS) -->
   <div class="tool-interface-wrap" id="tool-interface">
     <div class="tool-container" id="tool-root">
-      <!-- Tool UI rendered here by csv-json-converter.js -->
+      <!-- Tool UI rendered here by encrypt-before-sharing.js -->
       <div class="tool-loading">Loading tool...</div>
     </div>
   </div>
@@ -208,51 +208,33 @@
     <h2 id="related-heading">Related Tools</h2>
     <div class="related-grid">
       
-      <a href="/tools/json-formatter/" class="related-card">
-        <span class="related-title">JSON Formatter & Validator</span>
-        <span class="related-tag">Beautify and validate JSON data — with syntax highlighting and error detection</span>
+      <a href="/tools/aes-encryption/" class="related-card">
+        <span class="related-title">AES Encryption Tool</span>
+        <span class="related-tag">Encrypt text with AES-128, 192, or 256-bit keys — 100% client-side</span>
       </a>
-      <a href="/tools/xml-json-converter/" class="related-card">
-        <span class="related-title">XML to JSON Converter</span>
-        <span class="related-tag">Convert XML data to JSON format — fast, free, client-side</span>
+      <a href="/tools/aes-decryption/" class="related-card">
+        <span class="related-title">AES Decryption Tool</span>
+        <span class="related-tag">Decrypt AES-encrypted ciphertext — supports Base64 and Hex input</span>
       </a>
-      <a href="/tools/yaml-json-converter/" class="related-card">
-        <span class="related-title">YAML to JSON Converter</span>
-        <span class="related-tag">Convert YAML to JSON — for config files, CI/CD, and API schemas</span>
+      <a href="/tools/random-password-generator/" class="related-card">
+        <span class="related-title">Random Password Generator</span>
+        <span class="related-tag">Generate strong, cryptographically secure passwords — customizable length and charset</span>
+      </a>
+      <a href="/tools/hmac-generator/" class="related-card">
+        <span class="related-title">HMAC Generator</span>
+        <span class="related-tag">Generate HMAC message authentication codes — SHA256, SHA512, SHA1, MD5</span>
       </a>
     </div>
   </section>
 
     <!-- SEO Content Block — How to Use -->
     <section class="usage-guide" aria-labelledby="usage-heading">
-      <h2 id="usage-heading">How to Use the CSV to JSON Converter</h2>
+      <h2 id="usage-heading">How to Use the Encrypt Before Sharing</h2>
       <div class="usage-content" id="usage-content">
-        <ol><li>Choose <strong>direction</strong> (CSV → JSON or JSON → CSV).</li><li>Select the <strong>delimiter</strong> used in your CSV (comma, semicolon, tab, pipe).</li><li><strong>Paste data</strong> and click <strong>Convert</strong>.</li></ol><p>CSV → JSON uses the first row as headers and produces an array of objects. JSON → CSV requires an array of flat objects. Handles quoted fields with commas and newlines correctly.</p>
+        <ol><li><strong>Encrypt:</strong> type your secret, choose a strong passphrase, then create the package.</li><li>Copy the <strong>JSON</strong> (or the full instruction block) into your chat or email.</li><li>Tell the recipient the passphrase <strong>outside that same channel</strong> (phone, in person, password manager share).</li><li><strong>Decrypt:</strong> they open this tool, switch to Decrypt package, paste JSON, enter the passphrase.</li></ol><p>Uses AES-256-CBC with PKCS#7 padding and the same passphrase-derived key scheme as the AES Decryption tool.</p>
       </div>
     </section>
 
-    <section class="seo-content">
-      <h2>What is CSV to JSON Conversion?</h2>
-      <p>CSV (Comma-Separated Values) is a plain text format for tabular data where each row is a record and columns are separated by commas. JSON is a hierarchical key-value format. Converting CSV to JSON maps each row to a JSON object, using the header row as keys — making CSV data ready for use in JavaScript, APIs, and NoSQL databases.</p>
-
-      <h2>Common Uses</h2>
-      <ul>
-      <li>Importing spreadsheet data into a JavaScript application or API</li>
-      <li>Converting database exports for use in MongoDB or other document databases</li>
-      <li>Transforming analytics exports (Google Analytics, Mixpanel) into JSON for processing</li>
-      <li>Preparing data for REST API payloads</li>
-      </ul>
-
-      <h2>Frequently Asked Questions</h2>
-    <h3>What happens if my CSV has commas inside a field?</h3>
-    <p>Fields containing commas should be wrapped in double quotes in valid CSV. The converter handles quoted fields correctly, e.g. "Smith, John" remains one field, not split into two.</p>
-
-    <h3>Does the converter handle CSV files with different delimiters (TSV, semicolon)?</h3>
-    <p>Most CSV converters handle standard comma-delimited files. For TSV (tab-separated) or semicolon-delimited files, check if the tool has a delimiter option or manually replace the delimiter before pasting.</p>
-
-    <h3>Can I convert JSON back to CSV?</h3>
-    <p>Yes. SolarVault supports bidirectional conversion. Paste JSON (an array of objects with consistent keys) and convert it to CSV format with headers derived from the object keys.</p>
-    </section>
   </div>
 
 </main>
@@ -354,14 +336,14 @@
 <script src="/assets/js/core/pwa.js" defer></script>
 
 <!-- Feedback Widget -->
-<script>window.SITE_TOOL_NAME = 'CSV to JSON Converter';</script>
+<script>window.SITE_TOOL_NAME = 'Encrypt Before Sharing';</script>
 <script src="/assets/js/feedback.js" defer></script>
 
 <!-- Vendor JS -->
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js" integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==" crossorigin="anonymous" defer></script>
 
 <!-- Tool-specific JS -->
-<script src="/assets/js/tools/csv-json-converter.js" defer></script>
+<script src="/assets/js/tools/encrypt-before-sharing.js" defer></script>
 
 <!-- State: permalinks, recent tools, history -->
 <script src="/assets/js/core/sv-state.js" defer></script>
