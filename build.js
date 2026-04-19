@@ -760,8 +760,8 @@ ${buildNavbar()}
 
   <section class="sv-smart-panel" id="smart-tool-suggest" aria-labelledby="sv-smart-h">
     <div class="sv-smart-inner">
-      <h2 id="sv-smart-h" class="sv-smart-h2">Smart tool suggestion</h2>
-      <p class="sv-smart-lead">Paste a sample — we suggest matching tools based on what it looks like (JWT, JSON, SQL, and more).</p>
+      <h2 id="sv-smart-h" class="sv-smart-h2">Smart Auto-Detection</h2>
+      <p class="sv-smart-lead">Paste anything — we detect JSON, JWT, Base64, URLs, SQL, YAML, and more. Pick a tool to <strong>open it with your text</strong> already in the editor.</p>
       <label class="visually-hidden" for="sv-smart-input">Paste text to analyze</label>
       <textarea id="sv-smart-input" class="mono sv-smart-textarea" rows="3" placeholder="JWT, JSON, SQL, YAML, URL, hex, Base64, cron, IPv4…"></textarea>
       <div id="sv-smart-out" class="sv-smart-out" aria-live="polite"></div>

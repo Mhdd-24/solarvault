@@ -1310,6 +1310,39 @@
   margin-top: 4px;
 }
 
+.sv-smart-detect {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-bottom: 14px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(255, 209, 74, 0.08);
+  border: 1px solid rgba(255, 209, 74, 0.28);
+  font-size: 0.88rem;
+  color: var(--text);
+}
+.sv-smart-detect-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.sv-smart-detect-value {
+  font-weight: 700;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.sv-smart-link--primary {
+  border-color: rgba(255, 209, 74, 0.45) !important;
+  background: linear-gradient(165deg, rgba(255, 209, 74, 0.1), rgba(0, 0, 0, 0.25)) !important;
+  box-shadow: 0 0 0 1px rgba(255, 209, 74, 0.12);
+}
+
 /* ── Section motion (staggered entrances; off when reduced-motion) ─────────── */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes sv-enter-up {

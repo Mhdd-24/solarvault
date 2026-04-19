@@ -341,6 +341,91 @@
     });
   })();
 
+  /* ── Smart Auto-Detection paste handoff (sessionStorage → #t-input) ───── */
+  (function applySmartPasteHandoff() {
+    const KEY = 'sv_smart_handoff';
+
+    function slugFromPath() {
+      const p = window.location.pathname.replace(/\/$/, '');
+      const parts = p.split('/').filter(Boolean);
+      if (parts.length < 2 || parts[0] !== 'tools') return '';
+      return parts[parts.length - 1] || '';
+    }
+
+    function tryApply() {
+      let raw;
+      try {
+        raw = sessionStorage.getItem(KEY);
+      } catch (e) {
+        return true;
+      }
+      if (!raw) return true;
+
+      let data;
+      try {
+        data = JSON.parse(raw);
+      } catch (e) {
+        try { sessionStorage.removeItem(KEY); } catch (_) {}
+        return true;
+      }
+      if (!data || data.v !== 1 || typeof data.text !== 'string') {
+        try { sessionStorage.removeItem(KEY); } catch (_) {}
+        return true;
+      }
+
+      if (Date.now() - (data.t || 0) > 120000) {
+        try { sessionStorage.removeItem(KEY); } catch (_) {}
+        return true;
+      }
+
+      const slug = slugFromPath();
+      if (!slug) {
+        try { sessionStorage.removeItem(KEY); } catch (_) {}
+        return true;
+      }
+      if (slug !== data.slug) {
+        try { sessionStorage.removeItem(KEY); } catch (_) {}
+        return true;
+      }
+
+      const inp = document.querySelector('#tool-interface #t-input, #tool-root #t-input, #main-content #tool-root textarea#t-input');
+      if (!inp) return false;
+
+      try { sessionStorage.removeItem(KEY); } catch (_) {}
+
+      inp.value = data.text;
+      inp.dispatchEvent(new Event('input', { bubbles: true }));
+      inp.dispatchEvent(new Event('change', { bubbles: true }));
+
+      setTimeout(function () {
+        const btn = document.getElementById('btn-fmt')
+          || document.getElementById('btn-dec')
+          || document.getElementById('btn-enc');
+        if (btn) btn.click();
+      }, 70);
+
+      if (window.CK && window.CK.toast) {
+        window.CK.toast('Loaded from Smart Auto-Detection');
+      }
+      return true;
+    }
+
+    function schedule() {
+      if (tryApply()) return;
+      let n = 0;
+      const id = setInterval(function () {
+        n += 1;
+        if (tryApply() || n > 50) clearInterval(id);
+      }, 90);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () { setTimeout(schedule, 0); });
+    } else {
+      setTimeout(schedule, 0);
+    }
+  })();
+
   /* ── PUBLIC API ───────────────────────────────────────────────────────── */
   window.CK = {
     toast,
