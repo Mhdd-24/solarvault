@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mhdd-24.github.io/SolarVault/sitemap.xml
